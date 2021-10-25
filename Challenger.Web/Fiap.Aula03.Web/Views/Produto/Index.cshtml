@@ -1,0 +1,72 @@
+﻿@model ProdutoViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Produtos</h1>
+<hr />
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Cadastro de Produto</h2>
+        <form asp-action="cadastrar">
+            <div class="form-group">
+                <label asp-for="Produto.Nome"></label>
+                <input asp-for="Produto.Nome" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Preco"></label>
+                <input asp-for="Produto.Preco" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Corredor"></label>
+                <input asp-for="Produto.Corredor" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Data de Validade</label>
+                <input type="date" asp-for="Produto.DataValidade" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Quantidade"></label>
+                <input asp-for="Produto.Quantidade" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Categoria"></label>
+                <select asp-for="Produto.Categoria" class="form-control" asp-items="@Html.GetEnumSelectList<Categoria>()" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    <option>Selecione</option>
+                </select>
+            </div>
+            <div class="" style="display: flex; justify-content: center;">
+                <input type="submit" value="Cadastrar" class="btn btn-success" style="width: 150px;" />
+
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h2>Lista de Produtos</h2>
+        <table class="table">
+            <tr>
+                <th>Nome</th>
+                <th>Preco</th>
+                <th>Corredor</th>
+                <th>Quantidade</th>
+                <th>DataValidade</th>
+                <th>Categoria</th>
+            </tr>
+            @foreach (var item in Model.Lista)
+            {
+        <tr>
+            <td>@item.Nome</td>
+            <td>@item.Preco</td>
+            <td>@item.Corredor</td>
+            <td>@item.Quantidade</td>
+            <td>@item.DataValidade</td>
+            <td>@item.Categoria</td>
+        </tr>
+            }
+        </table>
+    </div>
+</div>
+
